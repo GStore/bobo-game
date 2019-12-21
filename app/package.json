@@ -1,0 +1,15 @@
+{
+  "name": "bobo-game",
+  "version": "1.0.0",
+  "description": "A game for my son to learn the alphabet...maybe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "StoGun",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.4"
+  }
+}
