@@ -1,8 +1,9 @@
+const nodeexternals = require("webpack-node-externals");
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/main.ts'),
+  entry: path.resolve(__dirname, 'src/index.ts'),
 
   output: {
     filename: 'index.js',
@@ -19,5 +20,7 @@ module.exports = {
 
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
-  ]
+  ],
+  externals:[nodeexternals()],
+  mode: process.env.NODE_ENV || "development"
 };

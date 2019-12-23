@@ -1,5 +1,5 @@
 import express from 'express';
+import imageRoute from './routes';
+export const app: express.IRouter=express.Router();
 
-const app: express.Application = express();
-
-export default app;
+app.use(imageRoute);
