@@ -1,34 +1,32 @@
 .card {
-  width: 266px;
+  min-width: 266px;
   height: 395px;
   border: 1px solid black;
   padding: 5px;
-  display: flex;
-  flex-direction: column;
 }
 .card .letters {
   font-size: 89px;
   height: 32%;
   border: 1px dashed black;
-  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 .card .letters .capital {
   width: 50%;
-  display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .card .letters .lower {
   width: 50%;
-  display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .card .image {
   height: 51%;
   border: 1px dashed black;
+  justify-content: center;
 }
 .card .image img {
   border: 0px;
@@ -39,4 +37,6 @@
   height: 16%;
   border: 1px dashed black;
   text-align: center;
+  align-items: center;
+  justify-content: center;
 }
