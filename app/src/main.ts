@@ -1,5 +1,11 @@
 import express from 'express';
-import imageRoute from './routes';
+import routes from './routes';
+
+
 export const app: express.IRouter=express.Router();
 
-app.use(imageRoute);
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("UI coming soon!");
+});
+app.use(routes);
+
