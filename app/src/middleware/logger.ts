@@ -1,7 +1,5 @@
 import winston from "winston";
-
-// set default log level.
-let logLevel = 'info'
+import { LOGLEVEL } from "../config";
 
 const logLevels: winston.config.AbstractConfigSet = {
   levels: {
@@ -22,37 +20,39 @@ const logLevels: winston.config.AbstractConfigSet = {
   }
 };
 
+const consoleTrasportOptions: winston.transports.ConsoleTransportOptions = {
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.timestamp(),
+      winston.format.printf(({ level, message, label, timestamp }) => {
+        return `${timestamp} [${label}] ${level}: ${message}`;
+       }),
+       winston.format.metadata({
+
+       }),
+      winston.format.label({ label: "console"})
+    ),
+};
+
 
 const logger = winston.createLogger({
   levels: logLevels.levels,
-  level: logLevel,
+  level: LOGLEVEL,
   transports: [
-      new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.colorize(),
-          winston.format.timestamp()
-        )
-      }),
-      //new (winston.transports.File)({ filename: 'somefile.log' })
+      new winston.transports.Console(consoleTrasportOptions)
     ]
 })
 
 winston.addColors(logLevels.colors);
 
-// Extend logger object to properly log 'Error' types
-var origLog = logger.log
-logger.log = () => {
+/*
 
-};
-logger.log = function (level, msg) {
-  if (msg instanceof Error) {
-    var args = Array.prototype.slice.call(arguments)
-    args[1] = msg.stack
-    origLog.apply(logger, args)
-  } else {
-    origLog.apply(logger, arguments)
-  }
-}
-
-
-module.exports = logger
+Example usage:
+logger.log("trace", "can't find error");
+logger.log("debug", `debugging to find error`);
+logger.log("info", `need info on memory amount`);
+logger.log("warn", `could be running out or mem`);
+logger.log("crit", `some systems have failed`);
+logger.log("fatal", `a fatal error occured`);
+*/
+export default logger;
