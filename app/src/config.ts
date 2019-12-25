@@ -1,1 +1,1 @@
-export const LOGLEVEL=process.env.LOGLEVEL || "trace";
+export const LOGLEVEL=process.env.LOGLEVEL || "fatal";
