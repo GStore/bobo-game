@@ -16,8 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "flexboxgrid": "^6.3.1"
+    "flexboxgrid": "^6.3.1",
+    "fs": "0.0.1-security"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",

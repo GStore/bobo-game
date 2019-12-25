@@ -1,10 +1,7 @@
 import express from 'express';
-const imageRoute: express.IRouter = express.Router();
-const imageLocation: string=process.env.BG_IMAGES || 'images';
+import imageRoute from "./image-route";
 
-console.debug("image location", JSON.stringify(process.env.BG_IMAGES));
-
-imageRoute.use('/images', express.static(imageLocation));
-
+const routes: express.IRouter = express.Router();
+routes.use("/images", imageRoute);
 
 export default imageRoute;

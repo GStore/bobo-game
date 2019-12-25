@@ -10,5 +10,4 @@ entrypoint.use(app);
 
 entrypoint.listen(port, () => {
   console.debug("server started on port:", port);
-  console.log("process.env: ", process.env)
 });
