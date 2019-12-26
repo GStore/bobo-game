@@ -7,6 +7,30 @@ const webpack = require("webpack");
 
 const UI = process.env.UI_BUILD || false;
 
+const prefixRE = /^BG_/
+
+function resolveClientEnv (options, raw) {
+  const env = {}
+  Object.keys(process.env).forEach(key => {
+    if (prefixRE.test(key) || key === 'NODE_ENV') {
+      env[key] = process.env[key]
+    }
+  })
+  env.BASE_URL = options.publicPath
+
+  if (raw) {
+    return env
+  }
+
+  for (const key in env) {
+    env[key] = JSON.stringify(env[key])
+  }
+  return {
+    'process.env': env
+  }
+}
+
+
 module.exports = (config) => {
   return {
     entry:  UI ? path.resolve(__dirname, 'src/ui/index.ts') :path.resolve(__dirname, 'src/index.ts'),
@@ -28,6 +52,22 @@ module.exports = (config) => {
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
           filename: "ui/index.html",
+          templateParameters: (compilation, assets, pluginOptions) => {
+            // enhance html-webpack-plugin's built in template params
+            let stats
+            return Object.assign({
+              // make stats lazy as it is expensive
+              get webpack () {
+                return stats || (stats = compilation.getStats().toJson())
+              },
+              compilation: compilation,
+              webpackConfig: compilation.options,
+              htmlWebpackPlugin: {
+                files: assets,
+                options: pluginOptions
+              }
+            }, resolveClientEnv(options, true /* raw */))
+          },
           template: path.resolve(__dirname, "src/ui/public/index.html")
         }),
         new webpack.EnvironmentPlugin({
