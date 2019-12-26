@@ -1,6 +1,8 @@
 import winston from "winston";
 import { LOGLEVEL } from "../config";
 
+export const consoleLog=console.log;
+
 const logLevels: winston.config.AbstractConfigSet = {
   levels: {
     fatal: 0,
