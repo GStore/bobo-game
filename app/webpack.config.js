@@ -37,8 +37,8 @@ module.exports = (config) => {
     entry:  UI ? path.resolve(__dirname, 'src/ui/index.ts') :path.resolve(__dirname, 'src/index.ts'),
 
     output: {
-      filename: UI ? "ui/index.js" : 'index.js',
-      path: path.resolve(__dirname, 'dist')
+      filename: UI ? "index.js" : 'index.js',
+      path: UI ? path.resolve(path.join(__dirname, "dist","ui")) : path.resolve(__dirname, 'dist')
     },
 
     resolve: {
@@ -46,40 +46,47 @@ module.exports = (config) => {
     },
 
     module: {
-      rules: [{ test: /\.(ts|js)x?$/, loader: 'babel-loader', exclude: /node_modules/ }],
+      rules: [{ test: /\.(ts|js)x?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.vue$/, loader: 'vue-loader', exclude: /node_modules/ }],
     },
 
     plugins: UI ? [
         new ForkTsCheckerWebpackPlugin(),
+        new webpack.DefinePlugin(
+          {
+            'process.env': {
+              BG_BASE_URL: '"/"'
+            }
+          }
+        ),
         new HtmlWebpackPlugin({
-          filename: "ui/index.html",
-          templateParameters: (compilation, assets, pluginOptions) => {
-            // enhance html-webpack-plugin's built in template params
-            let stats
-            return Object.assign({
-              // make stats lazy as it is expensive
-              get webpack () {
-                return stats || (stats = compilation.getStats().toJson())
-              },
-              compilation: compilation,
-              webpackConfig: compilation.options,
-              htmlWebpackPlugin: {
-                files: assets,
-                options: pluginOptions
-              }
-            }, resolveClientEnv(options, true /* raw */))
+          filename: "index.html",
+          templateParameters: {
+            "BG_BASE_URL": "/"
           },
+          // (compilation, assets, pluginOptions) => {
+          //   // enhance html-webpack-plugin's built in template params
+          //   let stats
+          //   return Object.assign({
+          //     // make stats lazy as it is expensive
+          //     get webpack () {
+          //       return stats || (stats = compilation.getStats().toJson())
+          //     },
+          //     compilation: compilation,
+          //     webpackConfig: compilation.options,
+          //     htmlWebpackPlugin: {
+          //       files: assets,
+          //       options: pluginOptions
+          //     }
+          //   }, resolveClientEnv(options, true /* raw */))
+          // },
           template: path.resolve(__dirname, "src/ui/public/index.html")
         }),
-        new webpack.EnvironmentPlugin({
-          BG_BASE_URL: "'/'"
-        }
-        ),
         new CopyPlugin(
           [
             {
               from: path.resolve(__dirname, "src/ui/public"),
-              to: path.resolve(__dirname, "dist"),
+              to: path.resolve(__dirname, "dist/ui"),
               toType: 'dir',
               ignore: [
                 '.DS_Store',

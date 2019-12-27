@@ -11,7 +11,12 @@
     "start": "node -r dotenv/config ./dist/index.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-ui": "cross-env UI_BUILD=true webpack-cli"
+    "build-ui": "npm run clear-dist && cross-env UI_BUILD=true webpack-cli",
+    "clear-dist": "rm -rf dist",
+    "vue-serve": "vue-cli-service serve",
+    "vue-build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "vue-   lint": "vue-cli-service lint"
   },
   "author": "StoGun",
   "license": "ISC",
@@ -20,7 +25,12 @@
     "express": "^4.17.1",
     "flexboxgrid": "^6.3.1",
     "fs": "0.0.1-security",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "core-js": "^3.4.3",
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.3.0",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -52,7 +62,23 @@
     "typescript": "^3.7.4",
     "webpack": "^4.41.4",
     "webpack-cli": "3.3.10",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.4",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-typescript": "^4.1.0",
+    "@vue/cli-plugin-unit-mocha": "^4.1.0",
+    "@vue/cli-plugin-vuex": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "chai": "^4.1.2",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "babel": {
     "presets": [
