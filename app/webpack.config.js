@@ -16,7 +16,8 @@ function resolveClientEnv (options, raw) {
       env[key] = process.env[key]
     }
   })
-  env.BASE_URL = options.publicPath
+  // this can probably be removed
+ // env.BASE_URL = options.publicPath
 
   if (raw) {
     return env
