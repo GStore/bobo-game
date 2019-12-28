@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "server:test": "echo \"Error: no test specified\" && exit 1",
-    "server:lint": "eslint \"./server/**/*.{js,ts,tsx}\" --fix",
+    "server:lint": "eslint -c ./server/.eslintrc.js \"./server/src/**/*.{js,ts,tsx}\" --fix",
     "server:build": "webpack-cli --config server/webpack.config.js",
     "server:serve": "npm run build && npm run start",
     "server:start": "node -r dotenv/config ./dist/server.js",
@@ -14,9 +14,9 @@
     "vue:serve": "vue-cli-service serve",
     "vue:build": "vue-cli-service build",
     "vue:test:unit": "vue-cli-service test:unit",
-    "vue:lint": "vue-cli-service lint",
+    "vue:lint": "vue-cli-service lint --fix -c ./ui/.eslintrc.js ui/**/*.ts ui/**/*.js",
     "clean": "rm -rf dist",
-    "build": "npm run clean && concurrently \"npm run server:build\" \"npm run vue:build\""
+    "build": "npm run clean && concurrently \"npm run server:lint\" \"npm run vue:lint\" && concurrently \"npm run server:build\" \"npm run vue:build\""
   },
   "author": "StoGun",
   "license": "ISC",

@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  lintOnSave: true,
   outputDir: "./dist/ui",
   configureWebpack: config => {
     Object.assign(config, {
@@ -11,7 +12,6 @@ module.exports = {
     });
   },
   chainWebpack: config => {
-    config.resolve.alias
-        .set('@', path.join(__dirname, "ui/src"));
-}
+    config.resolve.alias.set("@", path.join(__dirname, "ui/src"));
+  }
 };
