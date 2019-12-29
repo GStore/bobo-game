@@ -1,15 +1,21 @@
 const nodeexternals = require('webpack-node-externals');
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const api=process.env.BUILD==="api" || false;
 
 module.exports = () => {
+    if(api) {
+      console.debug("Building for API");
+    }
     return {
         context: __dirname,
-        entry: path.resolve(__dirname, path.join("src", "index.ts")),
+        entry: api ? path.resolve(__dirname, path.join("src", "main.ts")) : path.resolve(__dirname, path.join("src", "index.ts")),
 
         output: {
-            filename: 'server.js',
+            filename: api ? "api.js" : 'server.js',
             path: path.resolve(__dirname, '../dist'),
+            library: "api",
+            libraryTarget: "umd"
         },
 
         resolve: {

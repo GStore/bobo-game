@@ -14,14 +14,17 @@
     "vue:serve": "vue-cli-service serve",
     "vue:build": "vue-cli-service build",
     "vue:test:unit": "vue-cli-service test:unit",
+    "vue:build:api": "cross-env BUILD=api webpack-cli --config server/webpack.config.js",
     "vue:lint": "vue-cli-service lint --fix -c ./ui/.eslintrc.js ui/**/*.ts ui/**/*.js",
     "clean": "rm -rf dist",
     "build": "npm run clean && concurrently \"npm run server:lint\" \"npm run vue:lint\" && concurrently \"npm run server:build\" \"npm run vue:build\"",
-    "serve": "npm run build && npm run server:start"
+    "serve": "npm run build && npm run server:start",
+    "vue:api:serve": "npm run vue:build:api && npm run vue:build && npm run vue:serve"
   },
   "author": "StoGun",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.4.3",
