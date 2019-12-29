@@ -1,7 +1,7 @@
 {
   "name": "bobo-game",
   "version": "1.0.0",
-  "description": "A game for my son to learn the alphabet...maybe",
+  "description": "A game for my son to learn the alphabet",
   "main": "server/index.js",
   "scripts": {
     "server:test": "echo \"Error: no test specified\" && exit 1",
@@ -39,6 +39,7 @@
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
+    "@pickra/copy-code-block": "^1.1.7",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-backgrounds": "^5.2.8",
     "@storybook/addon-knobs": "^5.2.8",

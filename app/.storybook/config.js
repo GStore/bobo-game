@@ -1,6 +1,7 @@
 import { configure, addParameters } from '@storybook/html';
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
+
 addParameters({
   backgrounds: [
     { name: "Default", value: "#FFFFFF", default: false },
@@ -15,3 +16,4 @@ addParameters({
 
 // automatically import all files ending in *.ts
 configure(require.context('../stories', true, /\.ts$/), module);
+
