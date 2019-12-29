@@ -1,7 +1,9 @@
 <template>
   <div class="card col">
     <section class="letters row"><span class="capital col-xs">A</span><span class="lower col-xs">a</span></section>
-    <section class="image row"><img alt="Image of an apple"></section>
+    <section class="image row">
+      <img :src="imageLocation" alt="Image of an apple">
+    </section>
     <section class="description row">
       <div>A is for apple</div>
     </section>
@@ -14,6 +16,11 @@ import "flexboxgrid";
 
 @Component<AlphabetCards>({})
 export default class AlphabetCards extends Vue {
+  private imgRoot: string = "images/prototypes";
+  private cardImage: string = "apple.png";
+  get imageLocation() {
+    return `${this.imgRoot}/${this.cardImage}`;
+  }
 }
 </script>
 <style lang="scss" scoped>
