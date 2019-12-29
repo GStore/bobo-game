@@ -1,4 +1,7 @@
-module.exports = ({ config, mode }) => {
+const path = require("path");
+
+module.exports = ({ config }) => {
+  config.context = path.resolve(__dirname, "../stories");
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
     loader: require.resolve('babel-loader'),
