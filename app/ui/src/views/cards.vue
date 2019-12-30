@@ -37,7 +37,7 @@ export default class AlphabetCards extends Vue {
   private imgRoot: string = "images/prototypes";
   private cardImage: string = "apple.png";
   private description: string = "apple";
-  
+
   get imageLocation() {
     return `${this.imgRoot}/${this.cardImage}`;
   }
@@ -46,7 +46,7 @@ export default class AlphabetCards extends Vue {
     window.clearTimeout(this.timer);
   }
 
-  private keyDown = (event): void => {
+  private keyDown = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
     this.clearTimeout();
     if(event.keyCode >= 48 && event.keyCode <= 90) {
@@ -55,7 +55,7 @@ export default class AlphabetCards extends Vue {
     }    
   }
 
-  private keyUp = (event): void => {
+  private keyUp = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
     const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
     
