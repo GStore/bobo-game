@@ -1,5 +1,5 @@
 import { RouteConfig } from "vue-router";
-import AlphabetCards from "@/views/alphabet-cards.vue";
+import AlphabetCards from "@/views/cards.vue";
 
 const alphabetCards: RouteConfig = {
   path: "/cards",

@@ -1,8 +1,10 @@
 import express from "express";
 import routes from "./routes";
+import bodyParser from "body-parser";
 
-export const app: express.IRouter = express.Router();
+const configure = (expressApp: express.Application) => {
+    expressApp.use(bodyParser.json());
+    expressApp.use(routes);
+};
 
-app.use("/", express.static("dist/ui"));
-
-app.use(routes);
+export default configure;
