@@ -1,15 +1,20 @@
 const path = require("path");
-const configureAPI = require("./dist/api.js").default;
+let configureAPI;
+const devserver = process.env.BUILD==="devserver" || false;
 
-console.log(configureAPI);
+if (devserver) {
+   configureAPI = require("./dist/api.js").default;
+}
 
-module.exports = {
-  devServer: {
-    before: configureAPI
-  },
+module.exports = {  
   lintOnSave: true,
   outputDir: "./dist/ui",
   configureWebpack: config => {
+    if (devserver) {
+      config.devServer = {
+        before: configureAPI
+      }
+    }
     Object.assign(config, {
       context: path.join(__dirname, "ui"),
       entry: {
