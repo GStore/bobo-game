@@ -34,10 +34,12 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
+
   private clearTimeout = (): void => {
     window.clearTimeout(this.timer);
   }
-  private keyDown = (event) => {
+
+  private keyDown = (event): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
     this.clearTimeout();
     if(event.keyCode >= 48 && event.keyCode <= 90) {
@@ -46,7 +48,7 @@ export default class AlphabetCards extends Vue {
     }    
   }
 
-  private keyUp = (event) => {
+  private keyUp = (event): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
     const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
     
