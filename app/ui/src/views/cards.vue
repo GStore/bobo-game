@@ -18,27 +18,13 @@ import Card from "@/components/card.vue";
   mounted(){
     this.$nextTick(() => {
       window.addEventListener('keydown', event => {
-        this.keyMap.set(event.key,true);
-        this.clearTimeout();
-        if(event.keyCode >= 48 && event.keyCode <= 90) {
-          this.model.keyPress = event.key;
-          event.stopPropagation();
-        }        
+        this.keyDown(event);
       });
 
       window.addEventListener('keyup', event => {
-        this.keyMap.set(event.key,false);
-        
-        const found = [ ...this.keyMap.values() ].find(f => f===true);
-        console.debug("found", found);
-        if(!found) {
-          this.timer = setTimeout(() => {
-            this.model.keyPress = "";
-          }, this.timeout);
-        }
+        this.keyUp(event);
       });
-    });
-    
+    });    
   }
 })
 export default class AlphabetCards extends Vue {
@@ -47,9 +33,35 @@ export default class AlphabetCards extends Vue {
   }
   private timeout: number = 700;
   private timer: any;
-  private keyMap: Map<string,boolean>=new Map<string, boolean>();
+  private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
   private clearTimeout = (): void => {
     window.clearTimeout(this.timer);
+  }
+  private keyDown = (event) => {
+    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
+    this.clearTimeout();
+    if(event.keyCode >= 48 && event.keyCode <= 90) {
+      this.model.keyPress = event.key;
+      event.stopPropagation();
+    }    
+  }
+
+  private keyUp = (event) => {
+    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
+    const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
+    
+    if(found) {
+      const arrayMap = [ ...this.keyMap.entries() ].filter(f => f[1].keydown === true);
+      const sorted = arrayMap.sort((first, second) => {
+        return first[1].timestamp > second[1].timestamp ? -1 : 1;
+      });
+      this.model.keyPress = sorted[0][0];
+    }
+    if(!found) {
+      this.timer = setTimeout(() => {
+        this.model.keyPress = "";
+      }, this.timeout);
+    }
   }
 }
 
