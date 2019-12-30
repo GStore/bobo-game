@@ -2,7 +2,7 @@
   <div>
     Alphabet cards : {{ model.keyPress }}
     <div class="card-width">
-      <Card v-if="model.keyPress" :letter="model.keyPress" />    
+      <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="description"/>    
     </div>
   </div>
 </template>
@@ -34,6 +34,13 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
+  private imgRoot: string = "images/prototypes";
+  private cardImage: string = "apple.png";
+  private description: string = "apple";
+  
+  get imageLocation() {
+    return `${this.imgRoot}/${this.cardImage}`;
+  }
 
   private clearTimeout = (): void => {
     window.clearTimeout(this.timer);
