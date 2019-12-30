@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import home from "./home";
-import alphabetCards from "./alphabet-cards";
+import alphabetCards from "./cards";
 
 const routes: RouteConfig[] = [home, alphabetCards];
 

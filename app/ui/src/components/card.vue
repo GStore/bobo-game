@@ -1,11 +1,11 @@
 <template>
   <div class="card col">
-    <section class="letters row"><span class="capital col-xs">A</span><span class="lower col-xs">a</span></section>
+    <section class="letters row"><span class="capital col-xs">{{letter}}</span><span class="lower col-xs">{{letter}}</span></section>
     <section class="image row">
       <img :src="imageLocation" alt="Image of an apple">
     </section>
     <section class="description row">
-      <div>A is for apple</div>
+      <div><span class="uppercase">{{letter}}</span> is for apple</div>
     </section>
   </div>
 </template>
@@ -16,6 +16,7 @@ import "flexboxgrid";
 
 @Component<AlphabetCards>({})
 export default class AlphabetCards extends Vue {
+  @Prop() private letter!: string;
   private imgRoot: string = "images/prototypes";
   private cardImage: string = "apple.png";
   get imageLocation() {
@@ -41,6 +42,7 @@ export default class AlphabetCards extends Vue {
     width: 50%;
     flex-direction: column;
     text-align: center;
+    text-transform: uppercase;
   }
 
   .card .letters .lower {
@@ -65,5 +67,9 @@ export default class AlphabetCards extends Vue {
     text-align: center;
     align-items: center;
     justify-content: center;
+  }
+
+  .card .uppercase {
+    text-transform:uppercase;
   }
 </style>
