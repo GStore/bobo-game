@@ -18,8 +18,8 @@ imageRoute.get("/images/:letter", (req: express.Request, res: express.Response) 
     const file = files.find(f => {
         return f[0] === letter;
     });
-    if(file) {
-      res.sendFile(`${imageLocation}/prototypes/${file}`);
+    if(file && fs.existsSync(`${imageLocation}/${file}`)) {
+      res.sendFile(`${imageLocation}/${file}`);
       return;
     }
     res.sendStatus(404);

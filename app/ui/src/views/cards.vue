@@ -34,12 +34,12 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images/prototypes";
+  private imgRoot: string = "images";
   private cardImage: string = "apple.png";
   private description: string = "apple";
 
   get imageLocation() {
-    return `${this.imgRoot}/${this.cardImage}`;
+    return `${this.imgRoot}/${this.model.keyPress}`;
   }
 
   private clearTimeout = (): void => {
