@@ -36,7 +36,7 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images/packs";
+  private imgRoot: string = "packs";
   private packName: string = "default";
 
   get imageLocation() {

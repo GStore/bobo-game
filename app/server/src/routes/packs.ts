@@ -26,14 +26,15 @@ if (!fs.existsSync(imageLocation)) {
     logger.log("fatal", "folder not found");
     throw new Error("unable to find folder");
 }
-imageRoute.get("/images/packs", (req: express.Request, res: express.Response) => {
+
+imageRoute.get("/packs", (req: express.Request, res: express.Response) => {
     const cardLocation = `${imageLocation}/cards`;
     const files = fs.readdirSync(cardLocation);
     const packs = files.map(file => path.parse(file).name);
     res.json(packs);
 });
 
-imageRoute.get("/images/packs/:pack", (req: express.Request, res: express.Response) => {
+imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/cards/${pack}.zip`;
     const entries = getZipEntries(packLocation);
@@ -46,7 +47,7 @@ imageRoute.get("/images/packs/:pack", (req: express.Request, res: express.Respon
     }      
 });
 
-imageRoute.get("/images/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
+imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/cards/${pack}.zip`;
     const entries = getZipEntries(packLocation);
