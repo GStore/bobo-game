@@ -2,7 +2,7 @@
   <div>
     Alphabet cards : {{ model.keyPress }}
     <div class="card-width">
-      <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="description"/>    
+      <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
     </div>
   </div>
 </template>
@@ -30,18 +30,17 @@ import axios from "axios";
 })
 export default class AlphabetCards extends Vue {
   private model: any = {
-    keyPress: ""
+    keyPress: "",
+    description: ""
   }
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images"; 
-  private cardImage: string = "apple.png";
-  private description: string = "";
+  private imgRoot: string = "images";
 
   get imageLocation() {
     const response =  axios.get(`${this.imgRoot}/${this.model.keyPress}`).then(res => {
-      this.description = res.headers["image-name"];
+      this.model.description = res.headers["image-name"];
     });
     return `${this.imgRoot}/${this.model.keyPress}`;
   }
@@ -50,6 +49,11 @@ export default class AlphabetCards extends Vue {
     window.clearTimeout(this.timer);
   }
 
+  private clearData = () => {
+    this.model.keyPress = "";
+    this.model.description = "";
+  };
+  
   private keyDown = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
     this.clearTimeout();
@@ -72,7 +76,7 @@ export default class AlphabetCards extends Vue {
     }
     if(!found) {
       this.timer = setTimeout(() => {
-        this.model.keyPress = "";
+        this.clearData();
       }, this.timeout);
     }
   }
