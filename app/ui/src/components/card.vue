@@ -5,7 +5,7 @@
       <img :src="image" alt="Image of an apple">
     </section>
     <section class="description row">
-      <div><span class="uppercase">{{letter}}</span> is for {{description}}</div>
+      <div><span class="uppercase">{{letter}}</span> is for <span class="capitalise">{{description}}</span></div>
     </section>
   </div>
 </template>
@@ -68,5 +68,8 @@ export default class AlphabetCards extends Vue {
 
   .card .uppercase {
     text-transform:uppercase;
+  }
+  .card .capitalise {
+    text-transform: capitalize;
   }
 </style>

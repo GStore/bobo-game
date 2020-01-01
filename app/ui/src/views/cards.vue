@@ -10,6 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Card from "@/components/card.vue";
+import axios from "axios";
 
 @Component<AlphabetCards>({
   components: {
@@ -34,19 +35,22 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images/prototypes";
+  private imgRoot: string = "images"; 
   private cardImage: string = "apple.png";
-  private description: string = "apple";
-  
+  private description: string = "";
+
   get imageLocation() {
-    return `${this.imgRoot}/${this.cardImage}`;
+    const response =  axios.get(`${this.imgRoot}/${this.model.keyPress}`).then(res => {
+      this.description = res.headers["image-name"];
+    });
+    return `${this.imgRoot}/${this.model.keyPress}`;
   }
 
   private clearTimeout = (): void => {
     window.clearTimeout(this.timer);
   }
 
-  private keyDown = (event): void => {
+  private keyDown = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
     this.clearTimeout();
     if(event.keyCode >= 48 && event.keyCode <= 90) {
@@ -55,7 +59,7 @@ export default class AlphabetCards extends Vue {
     }    
   }
 
-  private keyUp = (event): void => {
+  private keyUp = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
     const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
     
