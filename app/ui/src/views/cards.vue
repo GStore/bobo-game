@@ -36,13 +36,14 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images";
+  private imgRoot: string = "packs";
+  private packName: string = "default";
 
   get imageLocation() {
-    const response =  axios.get(`${this.imgRoot}/${this.model.keyPress}`).then(res => {
+    const response =  axios.get(`${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
       this.model.description = res.headers["image-name"];
     });
-    return `${this.imgRoot}/${this.model.keyPress}`;
+    return `${this.imgRoot}/${this.packName}/${this.model.keyPress}`;
   }
 
   private clearTimeout = (): void => {
