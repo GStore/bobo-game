@@ -10,6 +10,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Card from "@/components/card.vue";
+import axios from "axios";
 
 @Component<AlphabetCards>({
   components: {
@@ -34,11 +35,14 @@ export default class AlphabetCards extends Vue {
   private timeout: number = 700;
   private timer: any;
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
-  private imgRoot: string = "images";
+  private imgRoot: string = "images"; 
   private cardImage: string = "apple.png";
-  private description: string = "apple";
+  private description: string = "";
 
   get imageLocation() {
+    const response =  axios.get(`${this.imgRoot}/${this.model.keyPress}`).then(res => {
+      this.description = res.headers["image-name"];
+    });
     return `${this.imgRoot}/${this.model.keyPress}`;
   }
 
