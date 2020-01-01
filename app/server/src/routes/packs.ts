@@ -62,6 +62,7 @@ imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Respo
         });
         
         if(entry) {
+            res.setHeader("image-name", path.parse(entry.entryName).name);
             res.setHeader("Content-Type", "image/png");
             res.send(entry.getData());
             return;
