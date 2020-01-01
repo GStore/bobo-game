@@ -6,7 +6,7 @@ import admZip, { IZipEntry } from "adm-zip";
 import logger from "../middleware/logger";
 
 const imageRoute: express.IRouter = express.Router();
-const imageLocation: string = process.env.BG_IMAGES || "/undefined";
+const imageLocation: string = process.env.BG_PACKS || "/undefined";
 
 logger.log("info", `image locaton: ${imageLocation}`);
 
