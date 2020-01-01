@@ -1,5 +1,5 @@
 <template>
-  <div class="card col">
+  <div class="card col-xs-6">
     <section class="letters row"><span class="capital col-xs">{{letter}}</span><span class="lower col-xs">{{letter}}</span></section>
     <section class="image row">
       <img :src="image" alt="Image of an apple">
@@ -31,9 +31,10 @@ export default class AlphabetCards extends Vue {
   .card .letters {
     font-size: 89px;
     height: 32%;
-    border: 1px dashed black;
+    //border: 1px dashed black;
     justify-content: space-between;
     align-items: center;
+    margin: 0px;
   }
   .card .letters .capital {
     width: 50%;
@@ -50,20 +51,24 @@ export default class AlphabetCards extends Vue {
 
   .card .image {
     height: 51%;
-    border: 1px dashed black;
+    //border: 1px dashed black;
     justify-content: center;
+    margin: 0px;
   }
   .card .image img {
     border: 0px;
+    max-height: 100%;
+    max-width: 100%;
   }
 
   .card .description {
     font-size: 30px;
     height: 16%;
-    border: 1px dashed black;
+    //border: 1px dashed black;
     text-align: center;
     align-items: center;
     justify-content: center;
+    margin: 0px;
   }
 
   .card .uppercase {
