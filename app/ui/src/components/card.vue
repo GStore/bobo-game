@@ -27,54 +27,58 @@ export default class AlphabetCards extends Vue {
     height: 395px;
     border: 1px solid black;
     padding: 5px;
-  }
-  .card .letters {
-    font-size: 89px;
-    height: 32%;
-    //border: 1px dashed black;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0px;
-  }
-  .card .letters .capital {
-    width: 50%;
-    flex-direction: column;
-    text-align: center;
-    text-transform: uppercase;
-  }
+  
+    .letters {
+      font-size: 89px;
+      height: 32%;
+      //border: 1px dashed black;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0px;
 
-  .card .letters .lower {
-    width: 50%;
-    flex-direction: column;
-    text-align: center;
-  }
+      .capital {
+        width: 50%;
+        flex-direction: column;
+        text-align: center;
+        text-transform: uppercase;
+      }
 
-  .card .image {
-    height: 51%;
-    //border: 1px dashed black;
-    justify-content: center;
-    margin: 0px;
-  }
-  .card .image img {
-    border: 0px;
-    max-height: 100%;
-    max-width: 100%;
-  }
+      .lower {
+        width: 50%;
+        flex-direction: column;
+        text-align: center;
+      }
+    }
 
-  .card .description {
-    font-size: 30px;
-    height: 16%;
-    //border: 1px dashed black;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin: 0px;
-  }
+    .image {
+      height: 51%;
+      //border: 1px dashed black;
+      justify-content: center;
+      margin: 0px;
+    
+        img {
+          border: 0px;
+          max-height: 100%;
+          max-width: 100%;
+        }
+    }
 
-  .card .uppercase {
-    text-transform:uppercase;
-  }
-  .card .capitalise {
-    text-transform: capitalize;
+    .description {
+      font-size: 30px;
+      height: 16%;
+      //border: 1px dashed black;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      margin: 0px;
+    }
+
+    .uppercase {
+      text-transform:uppercase;
+    }
+    
+    .capitalise {
+      text-transform: capitalize;
+    }
   }
 </style>
