@@ -28,7 +28,7 @@ if (!fs.existsSync(imageLocation)) {
 }
 
 imageRoute.get("/packs", (req: express.Request, res: express.Response) => {
-    const cardLocation = `${imageLocation}/cards`;
+    const cardLocation = `${imageLocation}`;
     const files = fs.readdirSync(cardLocation);
     const packs = files.map(file => path.parse(file).name);
     res.json(packs);
@@ -36,7 +36,7 @@ imageRoute.get("/packs", (req: express.Request, res: express.Response) => {
 
 imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
-    const packLocation = `${imageLocation}/cards/${pack}.zip`;
+    const packLocation = `${imageLocation}/${pack}.zip`;
     const entries = getZipEntries(packLocation);
     if(!entries) {
         res.sendStatus(404);
@@ -49,7 +49,7 @@ imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => 
 
 imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
-    const packLocation = `${imageLocation}/cards/${pack}.zip`;
+    const packLocation = `${imageLocation}/${pack}.zip`;
     const entries = getZipEntries(packLocation);
     if(!entries) {
         res.sendStatus(404);
