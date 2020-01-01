@@ -1,7 +1,7 @@
 import express from "express";
 import * as fs from "fs";
 import path from "path";
-import admZip from "adm-zip";
+import admZip, { IZipEntry } from "adm-zip";
 
 import logger from "../middleware/logger";
 
@@ -10,31 +10,63 @@ const imageLocation: string = process.env.BG_IMAGES || "/undefined";
 
 logger.log("info", `image locaton: ${imageLocation}`);
 
+const getZipEntries = (zipLocation: string): IZipEntry[] | undefined => {
+    if(!fs.existsSync(zipLocation)) {
+        return undefined;
+    }
+    const zip = new admZip(`${zipLocation}`);
+    const entries = zip.getEntries();
+    if(entries.length > 0) {
+        return entries;
+    }
+    return undefined;
+}
+
 if (!fs.existsSync(imageLocation)) {
     logger.log("fatal", "folder not found");
     throw new Error("unable to find folder");
 }
-imageRoute.get("/images/manifest", (req: express.Request, res: express.Response) => {
-    const cardLocation = `${imageLocation}/cards`
+imageRoute.get("/images/packs", (req: express.Request, res: express.Response) => {
+    const cardLocation = `${imageLocation}/cards`;
     const files = fs.readdirSync(cardLocation);
-    const zip = new admZip(`${cardLocation}/${files[0]}`);
-    const entries = zip.getEntries();
-    const zipfiles = entries.map(e => e.entryName);
-    res.json(zipfiles);
+    const packs = files.map(file => path.parse(file).name);
+    res.json(packs);
 });
-imageRoute.get("/images/:letter", (req: express.Request, res: express.Response) => {
-    const letter = req.params.letter;
-    const files = fs.readdirSync(imageLocation);
-    const file = files.find(f => {
-        return f[0] === letter;
-    });
-    if (file && fs.existsSync(`${imageLocation}/${file}`)) {
-        res.setHeader("image-name", path.parse(file).name);
-        res.sendFile(`${imageLocation}/${file}`);
-        return;
+
+imageRoute.get("/images/packs/:pack", (req: express.Request, res: express.Response) => {
+    const pack = req.params.pack;
+    const packLocation = `${imageLocation}/cards/${pack}.zip`;
+    const entries = getZipEntries(packLocation);
+    if(!entries) {
+        res.sendStatus(404);
     }
-    res.sendStatus(404);
+    else {
+        const zipfiles = entries.map(e => e.entryName);
+        res.json(zipfiles);
+    }      
 });
-//imageRoute.use("/images", express.static(imageLocation));
+
+imageRoute.get("/images/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
+    const pack = req.params.pack;
+    const packLocation = `${imageLocation}/cards/${pack}.zip`;
+    const entries = getZipEntries(packLocation);
+    if(!entries) {
+        res.sendStatus(404);
+    }
+    else {
+        const letter = req.params.letter;
+        const files = fs.readdirSync(imageLocation);
+        const entry = entries.find(f => {
+            return f.entryName[0] === letter;
+        });
+        
+        if(entry) {
+            res.setHeader("Content-Type", "image/png");
+            res.send(entry.getData());
+            return;
+        }             
+    }
+    res.sendStatus(404); 
+});
 
 export default imageRoute;
