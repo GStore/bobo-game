@@ -1,1 +1,0 @@
-declare module '@pickra/copy-code-block';
