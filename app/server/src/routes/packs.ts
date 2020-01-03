@@ -11,16 +11,16 @@ const imageLocation: string = process.env.BG_PACKS || "/undefined";
 logger.log("info", `image locaton: ${imageLocation}`);
 
 const getZipEntries = (zipLocation: string): IZipEntry[] | undefined => {
-    if(!fs.existsSync(zipLocation)) {
+    if (!fs.existsSync(zipLocation)) {
         return undefined;
     }
     const zip = new admZip(`${zipLocation}`);
     const entries = zip.getEntries();
-    if(entries.length > 0) {
+    if (entries.length > 0) {
         return entries;
     }
     return undefined;
-}
+};
 
 if (!fs.existsSync(imageLocation)) {
     logger.log("fatal", "folder not found");
@@ -38,37 +38,35 @@ imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => 
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/${pack}.zip`;
     const entries = getZipEntries(packLocation);
-    if(!entries) {
+    if (!entries) {
         res.sendStatus(404);
-    }
-    else {
+    } else {
         const zipfiles = entries.map(e => e.entryName);
         res.json(zipfiles);
-    }      
+    }
 });
 
 imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/${pack}.zip`;
     const entries = getZipEntries(packLocation);
-    if(!entries) {
+    if (!entries) {
         res.sendStatus(404);
-    }
-    else {
+    } else {
         const letter = req.params.letter;
         const files = fs.readdirSync(imageLocation);
         const entry = entries.find(f => {
             return f.entryName[0] === letter;
         });
-        
-        if(entry) {
+
+        if (entry) {
             res.setHeader("image-name", path.parse(entry.entryName).name);
             res.setHeader("Content-Type", "image/png");
             res.send(entry.getData());
             return;
-        }             
+        }
     }
-    res.sendStatus(404); 
+    res.sendStatus(404);
 });
 
 export default imageRoute;

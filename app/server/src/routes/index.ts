@@ -8,5 +8,5 @@ routes.use((req: express.Request, res: express.Response, next: any) => {
     next();
 });
 routes.use(packs);
-
+logger.log("info", "routes loaded");
 export default routes;
