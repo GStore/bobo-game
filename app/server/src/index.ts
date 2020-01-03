@@ -2,6 +2,7 @@ import express from "express";
 import configure from "./main";
 import { consoleLog } from "./middleware/logger";
 import chalk from "chalk";
+
 //import history from "connect-history-api-fallback"
 
 const entrypoint: express.Application = express();
