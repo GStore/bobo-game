@@ -33,7 +33,7 @@ import axios from "axios";
       });
 
       window.addEventListener('keyup', event => {
-        //this.keyUp(event);
+        this.keyUp(event);
       });
     });    
   }
