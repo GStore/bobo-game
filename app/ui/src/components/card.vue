@@ -1,7 +1,10 @@
 <template>
-  <div class="card col-xs-6">
-    <section class="letters row"><span class="capital col-xs">{{letter}}</span><span class="lower col-xs">{{letter}}</span></section>
-    <section class="image row">
+  <div class="card col-xs-6 col-sm-3 col-md-3 col-lg-2 middle-sm-8 middle-md-8">
+    <section class="row center-xs letters">
+      <article class="capital col-xs-6 col-md-6">{{letter}}</article>
+      <article class="lower col-xs-6 col-md-6">{{letter}}</article>
+    </section>
+    <section class="row center-xs image">
       <img :src="image" alt="Image of an apple">
     </section>
     <section class="description row">
@@ -27,33 +30,30 @@ export default class AlphabetCards extends Vue {
     height: 395px;
     border: 1px solid black;
     padding: 5px;
+
+    
   
     .letters {
       font-size: 89px;
       height: 32%;
       //border: 1px dashed black;
-      justify-content: space-between;
-      align-items: center;
       margin: 0px;
 
       .capital {
-        width: 50%;
-        flex-direction: column;
         text-align: center;
         text-transform: uppercase;
       }
 
       .lower {
-        width: 50%;
-        flex-direction: column;
         text-align: center;
       }
+
+      
     }
 
     .image {
       height: 51%;
       //border: 1px dashed black;
-      justify-content: center;
       margin: 0px;
     
         img {
