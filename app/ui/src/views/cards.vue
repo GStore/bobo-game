@@ -1,10 +1,20 @@
 <template>
-  <div>
-    Alphabet cards : {{ model.keyPress }}
-    <div class="card-width">
+<article class="col-xs">
+  Alphabet cards : {{ model.keyPress }}
+    <div class="row center-xs display">
       <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
     </div>
-  </div>
+    <div class="row keys center-xs">
+      <div class="col-xs col-sm col-md-6">
+        <div class="row">
+        <div class="col col-xs-1 key" v-for="n in keys" v-bind:key="n" @click="cardUpdate(n)">
+          {{ String.fromCharCode(n) }}
+        </div>
+        </div>
+      </div>
+    </div>
+</article>
+  
 </template>
 
 <script lang="ts">
@@ -23,7 +33,7 @@ import axios from "axios";
       });
 
       window.addEventListener('keyup', event => {
-        this.keyUp(event);
+        //this.keyUp(event);
       });
     });    
   }
@@ -38,6 +48,16 @@ export default class AlphabetCards extends Vue {
   private keyMap: Map<string,{timestamp: number, keydown: boolean}>=new Map<string, {timestamp: number, keydown: boolean}>();
   private imgRoot: string = "packs";
   private packName: string = "default";
+  private keyStart: number = 97;
+  private keyEnd: number = 122;
+
+  get keys(): number[] {
+    const keyArray: number[] = [];
+    for(let n= this.keyStart; n <= this.keyEnd;n++) {
+      keyArray.push(n);
+    }
+    return keyArray;
+  }
 
   get imageLocation() {
     const response =  axios.get(`${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
@@ -54,6 +74,10 @@ export default class AlphabetCards extends Vue {
     this.model.keyPress = "";
     this.model.description = "";
   };
+
+  private cardUpdate(charCode: number) {
+    this.model.keyPress = String.fromCharCode(charCode);
+  }
   
   private keyDown = (event: KeyboardEvent): void => {
     this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
@@ -86,7 +110,20 @@ export default class AlphabetCards extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  .card-width {
-    width: 300px;
+  .display {
+    min-height: 395px;
+  }
+
+  .keys {
+    margin-top:20px;
+  }
+  .key {
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: blue;
+    }
   }
 </style>
