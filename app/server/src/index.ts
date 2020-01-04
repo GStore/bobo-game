@@ -1,10 +1,9 @@
 import express from "express";
 import chalk from "chalk";
-import history from "connect-history-api-fallback"
+import history from "connect-history-api-fallback";
 
 import configure from "./main";
 import { consoleLog } from "./middleware/logger";
-
 
 const entrypoint: express.Application = express();
 const port = process.env.PORT || 9000;

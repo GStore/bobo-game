@@ -54,7 +54,6 @@ imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Respo
         res.sendStatus(404);
     } else {
         const letter = req.params.letter;
-        const files = fs.readdirSync(imageLocation);
         const entry = entries.find(f => {
             return f.entryName[0] === letter;
         });
