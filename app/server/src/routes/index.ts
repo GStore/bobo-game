@@ -4,7 +4,7 @@ import packs from "./packs";
 import api from "./api";
 
 const routes: express.IRouter = express.Router();
-routes.use((req: express.Request, res: express.Response, next: any) => {
+routes.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
     logger.log("info", "loading routes");
     next();
 });
