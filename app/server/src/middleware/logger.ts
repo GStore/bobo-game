@@ -6,7 +6,7 @@ export const consoleLog = console.log;
 const logLevels: winston.config.AbstractConfigSet = {
     levels: {
         fatal: 0,
-        crit: 1,
+        error: 1,
         warn: 2,
         info: 3,
         debug: 4,
@@ -17,7 +17,7 @@ const logLevels: winston.config.AbstractConfigSet = {
         debug: "green",
         info: "blue",
         warn: "yellow",
-        crit: "red",
+        error: "red",
         fatal: "red",
     },
 };
@@ -49,7 +49,7 @@ logger.log("trace", "can't find error");
 logger.log("debug", `debugging to find error`);
 logger.log("info", `need info on memory amount`);
 logger.log("warn", `could be running out or mem`);
-logger.log("crit", `some systems have failed`);
+logger.log("error", `some systems have failed`);
 logger.log("fatal", `a fatal error occured`);
 */
 export default logger;
