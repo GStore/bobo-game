@@ -15,7 +15,7 @@ The UI uses Vue.js
 The server has it's own webpack config.  The UI is configured with vue.config.js.
 
 ### Environment variables 
-The project uses [dotenv](https://www.npmjs.com/package/dotenv) wich allows for defining environment variables in a .env file.  The form used is similar to regular environment variable definition ((windows icon) set ENV_VAR=somevar (linux/mac icon) export ENV_VAR=somevar).  
+The project uses [dotenv](https://www.npmjs.com/package/dotenv) which allows for defining environment variables in a .env file.  The form used is similar to regular environment variable definition ((windows icon) set ENV_VAR=somevar (linux/mac icon) export ENV_VAR=somevar).  
 
 example.env... 
 
