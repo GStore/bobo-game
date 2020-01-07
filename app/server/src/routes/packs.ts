@@ -3,10 +3,11 @@ import * as fs from "fs";
 import path from "path";
 import admZip, { IZipEntry } from "adm-zip";
 
-import logger from "../middleware/logger";
 
+import logger from "../middleware/logger";
+const defaultPacksLocation="../../../../images/cards";
 const imageRoute: express.IRouter = express.Router();
-const imageLocation: string = process.env.BG_PACKS || "/undefined";
+const imageLocation: string = path.resolve(process.env.BG_PACKS || defaultPacksLocation);
 
 logger.log("info", `image locaton: ${imageLocation}`);
 
