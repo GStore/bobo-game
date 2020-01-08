@@ -10,13 +10,6 @@ After a little research (mainly googling flashcard images :) ) I settled on usin
 - 51%: image
 - 16%: description
 
-Possible data structures that spring to mind are:
-- Name: Flashcard
-- Description: Holds flashcard info
-- Fields: Letter, Image, object
-
-This could use the functionn f(letter, object){ return `${letter} is for ${object}`} to create the description.
-
 Here's an example of the card:  
 ![alt text](../images/wiki/apple.png "apple card")
 
