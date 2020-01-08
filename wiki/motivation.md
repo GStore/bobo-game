@@ -5,7 +5,7 @@ The idea in a nutshell is that when he pushes a key on the keyboard:
 - an image and 
 - a description with the form 'a is for apple'.  
 
-After a little research (mainly googling flashcard images :} ) I settled on using the following dimensions for the card:
+After a little research (mainly googling flashcard images :) ) I settled on using the following dimensions for the card:
 - 33%: upper and lower case letters
 - 51%: image
 - 16%: description
