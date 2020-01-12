@@ -7,6 +7,6 @@ A game for my son to learn the alphabet
 ![HTML](https://img.shields.io/badge/-HTML-e54c21)
 ![CSS](https://img.shields.io/badge/-CSS-264de4)
 
-[motivation](./wiki/motivation.md)  
-[tech](./wiki/tech.md)  
-[env](./wiki/env.md)
+[motivation](./readme.d/motivation.md)  
+[tech](./readme.d/tech.md)  
+[env](./readme.d/env.md)
