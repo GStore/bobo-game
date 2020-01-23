@@ -7,11 +7,6 @@
     <section class="row">
       <router-view />
     </section>
-    <!-- <div class="main-viewport row center-xs center-md center-sm">
-      <div class="col-xs-12 col-md-12 col-sm-12">
-        
-      </div>
-    </div> -->
   </main>
 </template>
 

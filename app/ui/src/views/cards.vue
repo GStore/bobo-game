@@ -78,31 +78,37 @@ export default class AlphabetCards extends Vue {
   private cardUpdate(charCode: number) {
     this.model.keyPress = String.fromCharCode(charCode);
   }
+
+  private isKeyAllowed(keyCode: number) {
+    return keyCode >= 48 && keyCode <= 90;
+  }
   
   private keyDown = (event: KeyboardEvent): void => {
-    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
-    this.clearTimeout();
-    if(event.keyCode >= 48 && event.keyCode <= 90) {
-      this.model.keyPress = event.key;
+    if(this.isKeyAllowed(event.keyCode)) {
+      this.keyMap.set(event.key.toLowerCase(),{timestamp: Date.now(), keydown: true});
+      this.clearTimeout();
+      this.model.keyPress = event.key.toLowerCase();
       event.stopPropagation();
     }    
   }
 
   private keyUp = (event: KeyboardEvent): void => {
-    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
-    const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
-    
-    if(found) {
-      const arrayMap = [ ...this.keyMap.entries() ].filter(f => f[1].keydown === true);
-      const sorted = arrayMap.sort((first, second) => {
-        return first[1].timestamp > second[1].timestamp ? -1 : 1;
-      });
-      this.model.keyPress = sorted[0][0];
-    }
-    if(!found) {
-      this.timer = setTimeout(() => {
-        this.clearData();
-      }, this.timeout);
+    if(this.isKeyAllowed(event.keyCode)) {
+      this.keyMap.set(event.key.toLowerCase(),{timestamp: Date.now(), keydown: false});    
+      const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
+      
+      if(found) {
+        const arrayMap = [ ...this.keyMap.entries() ].filter(f => f[1].keydown === true);
+        const sorted = arrayMap.sort((first, second) => {
+          return first[1].timestamp > second[1].timestamp ? -1 : 1;
+        });
+        this.model.keyPress = sorted[0][0];
+      }
+      if(!found) {
+        this.timer = setTimeout(() => {
+          this.clearData();
+        }, this.timeout);
+      }
     }
   }
 }

@@ -2,6 +2,7 @@
   <article class="col-xs">
     <div class="row first">
       <div class="col-xs">
+        <image src="/images/apple.png" alt="flashcard game" />
       </div>
       <div class="col-xs">
       </div>
