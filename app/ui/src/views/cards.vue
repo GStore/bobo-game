@@ -60,10 +60,10 @@ export default class AlphabetCards extends Vue {
   }
 
   get imageLocation() {
-    const response =  axios.get(`${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
+    const response =  axios.get(`/api/${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
       this.model.description = res.headers["image-name"];
     });
-    return `${this.imgRoot}/${this.packName}/${this.model.keyPress}`;
+    return `/api/${this.imgRoot}/${this.packName}/${this.model.keyPress}`;
   }
 
   private clearTimeout = (): void => {

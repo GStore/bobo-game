@@ -9,6 +9,7 @@ const defaultPacksLocation="../../../../images/cards";
 const imageRoute: express.IRouter = express.Router();
 const imageLocation: string = path.resolve(process.env.BG_PACKS || defaultPacksLocation);
 
+// TODO: Investigate why logs are not displaying when running with npm serve
 logger.log("info", `image locaton: ${imageLocation}`);
 
 const getZipEntries = (zipLocation: string): IZipEntry[] | undefined => {
@@ -50,22 +51,30 @@ imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => 
 imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/${pack}.zip`;
+    logger.log("trace", JSON.stringify(packLocation));
     const entries = getZipEntries(packLocation);
-    if (!entries) {
-        res.sendStatus(404);
-    } else {
-        const letter = req.params.letter;
-        const entry = entries.find(f => {
-            return f.entryName[0] === letter;
-        });
-
-        if (entry) {
-            res.setHeader("image-name", path.parse(entry.entryName).name);
-            res.setHeader("Content-Type", "image/png");
-            res.send(entry.getData());
-            return;
+    logger.log("trace", JSON.stringify(entries));
+    try{
+        if (!entries) {
+            res.sendStatus(404);
+        } else {
+            const letter = req.params.letter;
+            const entry = entries.find(f => {
+                return f.entryName[0] === letter;
+            });
+    
+            if (entry) {
+                res.setHeader("image-name", path.parse(entry.entryName).name);
+                res.setHeader("Content-Type", "image/png");
+                res.send(entry.getData());
+                return;
+            }
         }
     }
+    catch(exception) {
+        logger.log("trace", exception)
+    }
+    
     res.sendStatus(404);
 });
 
