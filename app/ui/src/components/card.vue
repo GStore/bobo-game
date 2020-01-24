@@ -1,5 +1,5 @@
 <template>
-  <div class="card col-xs-6 col-sm-3 col-md-3 col-lg-2 middle-sm-8 middle-md-8">
+  <div class="card col-xs-5 col-sm-3 col-md-3 col-lg-2">
     <section class="row center-xs letters">
       <article class="capital col-xs-6 col-md-6">{{letter}}</article>
       <article class="lower col-xs-6 col-md-6">{{letter}}</article>
@@ -26,8 +26,8 @@ export default class AlphabetCards extends Vue {
 </script>
 <style lang="scss" scoped>
   .card {
-    min-width: 266px;
-    height: 395px;
+    min-width: 20em;
+    min-height: 29em;
     border: 1px solid black;
     padding: 5px;
 
