@@ -34,13 +34,26 @@ const consoleTrasportOptions: winston.transports.ConsoleTransportOptions = {
     ),
 };
 
+winston.addColors(logLevels.colors);
+
 const logger = winston.createLogger({
     levels: logLevels.levels,
     level: LOGLEVEL,
     transports: [new winston.transports.Console(consoleTrasportOptions)],
 });
 
-winston.addColors(logLevels.colors);
+/*
+TODO: convert this so that it retuns the following methods:
+.fatal(label, message)
+.error(label, message)
+.warn(label, message)
+.info(label, message)
+.debug(label, message)
+.trace(label, message)
+
+logger.log("<level>", "<message>", { label: "some label"});
+
+*/
 
 /*
 

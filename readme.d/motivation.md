@@ -1,4 +1,7 @@
-# Motivation
+# Motivation  
+[back](../README.md)  
+
+
 I started writing this little app as a way to help my son learn to associate the keys on a laptop keyboard with the alphabet that he's been learning through songs like the ABC song.  
 
 The idea in a nutshell is that when he pushes a key on the keyboard:

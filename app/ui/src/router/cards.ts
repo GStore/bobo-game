@@ -2,7 +2,7 @@ import { RouteConfig } from "vue-router";
 import AlphabetCards from "@/views/cards.vue";
 
 const alphabetCards: RouteConfig = {
-  path: "/cards",
+  path: "/",
   name: "alphabet cards",
   component: AlphabetCards
 };
