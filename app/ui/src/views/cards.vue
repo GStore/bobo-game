@@ -5,7 +5,7 @@
       <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
     </div>
     <div class="row center-xs">
-      <div class="keys col-xs-8 col-sm-6 col-md-4 col-lg-2">
+      <div class="keys col-xs-8 col-sm-8 col-md-8 col-lg-8">
         <div class="row">
         <div class="col col-xs-1 key" v-for="n in keys" v-bind:key="n" @click="cardUpdate(n)">
           {{ String.fromCharCode(n) }}
@@ -123,6 +123,7 @@ export default class AlphabetCards extends Vue {
   .keys {
     margin-top:20px;
     min-width: 22em;
+    max-width: 39em;
   }
   .key {
     border: 1px solid black;

@@ -30,13 +30,9 @@ export default class AlphabetCards extends Vue {
     min-height: 29em;
     border: 1px solid black;
     padding: 5px;
-
-    
   
     .letters {
       font-size: 89px;
-      height: 32%;
-      //border: 1px dashed black;
       margin: 0px;
 
       .capital {
