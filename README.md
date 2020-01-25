@@ -9,5 +9,5 @@ A game for my son to learn the alphabet
 
 [motivation](./readme.d/motivation.md)  
 [tech](./readme.d/tech.md)  
-[env](./readme.d/env.md)
-[Logging](./readme.d/logging.md)
+[env](./readme.d/env.md)  
+[logging](./readme.d/logging.md)
