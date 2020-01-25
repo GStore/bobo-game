@@ -5,8 +5,9 @@ Logging is achieved with the help of [winston](https://www.npmjs.com/package/win
 
 Log levels are controlled with the LOG_LEVEL environment variable and are based on [log4j](https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm).  
 
-The log levels arranged by increasing verbosity are:
-LEVEL|Description
+The log levels arranged by increasing verbosity are:  
+
+Level|Description
 -|-
 fatal | unrecoverable errors
 error | server able to start but with errors
