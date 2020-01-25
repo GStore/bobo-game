@@ -14,11 +14,11 @@
     "build:storybook": "build-storybook",
     "vue:serve": "vue-cli-service serve",
     "vue:build": "vue-cli-service build",
-    "vue:test:unit": "vue-cli-service test:unit",    
+    "vue:test:unit": "vue-cli-service test:unit",
     "vue:lint": "vue-cli-service lint --fix -c ./ui/.eslintrc.js ui/**/*.ts ui/**/*.js",
     "clean": "rm -rf dist",
     "build": "npm run clean && concurrently \"npm run server:lint\" \"npm run vue:lint\" && concurrently \"npm run server:build\" \"npm run vue:build\"",
-    "serve": "cross-env build=devserver npm run server:api:build && cross-env build=devserver npm run vue:serve"    
+    "serve": "cross-env build=devserver npm run server:api:build && cross-env build=devserver npm run vue:serve"
   },
   "author": "StoGun",
   "license": "ISC",
@@ -40,9 +40,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-typescript": "^7.6.0",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "@pickra/copy-code-block": "^1.1.7",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-backgrounds": "^5.2.8",
