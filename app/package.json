@@ -18,7 +18,8 @@
     "vue:lint": "vue-cli-service lint --fix -c ./ui/.eslintrc.js ui/**/*.ts ui/**/*.js",
     "clean": "rm -rf dist",
     "build": "npm run clean && concurrently \"npm run server:lint\" \"npm run vue:lint\" && concurrently \"npm run server:build\" \"npm run vue:build\"",
-    "serve": "cross-env build=devserver npm run server:api:build && cross-env build=devserver npm run vue:serve"
+    "serve": "cross-env BUILD=devserver npm run server:api:build && cross-env BUILD=devserver npm run vue:serve",
+    "start": "npm run build && npm run server:start"
   },
   "author": "StoGun",
   "license": "ISC",

@@ -42,24 +42,24 @@ const logger = winston.createLogger({
     transports: [new winston.transports.Console(consoleTrasportOptions)],
 });
 
-const Logger = (label: string) => {
+const Logger = (label: string): ILogger => {
     return {
-        fatal: (message: string) => {
+        fatal: (message: string): void => {
             logger.log("fatal", message, { label: label });
         },
-        error: (message: string) => {
+        error: (message: string): void => {
             logger.log("error", message, { label: label });
         },
-        warn: (message: string) => {
+        warn: (message: string): void => {
             logger.log("warn", message, { label: label });
         },
-        info: (message: string) => {
+        info: (message: string): void => {
             logger.log("info", message, { label: label });
         },
-        debug: (message: string) => {
+        debug: (message: string): void => {
             logger.log("debug", message, { label: label });
         },
-        trace: (message: string) => {
+        trace: (message: string): void => {
             logger.log("trace", message, { label: label });
         },
     };
