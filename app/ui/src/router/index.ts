@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import home from "./home";
 import alphabetCards from "./cards";
 
-const routes: RouteConfig[] = [home, alphabetCards];
+const routes: RouteConfig[] = [alphabetCards];
 
 Vue.use(VueRouter);
 

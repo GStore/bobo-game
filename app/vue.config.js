@@ -10,9 +10,11 @@ module.exports = {
   lintOnSave: true,
   outputDir: "./dist/ui",
   configureWebpack: config => {
+    console.log("building for:", process.env.BUILD);
     if (devserver) {
       config.devServer = {
-        before: configureAPI
+        before: configureAPI,
+        port: process.env.PORT || 9000
       }
     }
     Object.assign(config, {

@@ -3,8 +3,8 @@
     <div class="row center-xs display">
       <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
     </div>
-    <div class="row keys center-xs">
-      <div class="col-xs col-sm col-md-6">
+    <div class="row center-xs">
+      <div class="keys col-xs-8 col-sm-8 col-md-8 col-lg-8">
         <div class="row">
           <div class="col col-xs-1 key" v-for="n in numbers" v-bind:key="n">
             {{ n }}
@@ -74,10 +74,10 @@ export default class AlphabetCards extends Vue {
   }
 
   get imageLocation() {
-    const response =  axios.get(`${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
+    const response =  axios.get(`/api/${this.imgRoot}/${this.packName}/${this.model.keyPress}`).then(res => {
       this.model.description = res.headers["image-name"];
     });
-    return `${this.imgRoot}/${this.packName}/${this.model.keyPress}`;
+    return `/api/${this.imgRoot}/${this.packName}/${this.model.keyPress}`;
   }
 
   private clearTimeout = (): void => {
@@ -92,31 +92,37 @@ export default class AlphabetCards extends Vue {
   private cardUpdate(key: string) {
     this.model.keyPress = key;
   }
+
+  private isKeyAllowed(keyCode: number) {
+    return keyCode >= 48 && keyCode <= 90;
+  }
   
   private keyDown = (event: KeyboardEvent): void => {
-    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: true});
-    this.clearTimeout();
-    if(event.keyCode >= 48 && event.keyCode <= 90) {
-      this.model.keyPress = event.key;
+    if(this.isKeyAllowed(event.keyCode)) {
+      this.keyMap.set(event.key.toLowerCase(),{timestamp: Date.now(), keydown: true});
+      this.clearTimeout();
+      this.model.keyPress = event.key.toLowerCase();
       event.stopPropagation();
     }    
   }
 
   private keyUp = (event: KeyboardEvent): void => {
-    this.keyMap.set(event.key,{timestamp: Date.now(), keydown: false});    
-    const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
-    
-    if(found) {
-      const arrayMap = [ ...this.keyMap.entries() ].filter(f => f[1].keydown === true);
-      const sorted = arrayMap.sort((first, second) => {
-        return first[1].timestamp > second[1].timestamp ? -1 : 1;
-      });
-      this.model.keyPress = sorted[0][0];
-    }
-    if(!found) {
-      this.timer = setTimeout(() => {
-        this.clearData();
-      }, this.timeout);
+    if(this.isKeyAllowed(event.keyCode)) {
+      this.keyMap.set(event.key.toLowerCase(),{timestamp: Date.now(), keydown: false});    
+      const found = [ ...this.keyMap.values() ].find(f => f.keydown===true);
+      
+      if(found) {
+        const arrayMap = [ ...this.keyMap.entries() ].filter(f => f[1].keydown === true);
+        const sorted = arrayMap.sort((first, second) => {
+          return first[1].timestamp > second[1].timestamp ? -1 : 1;
+        });
+        this.model.keyPress = sorted[0][0];
+      }
+      if(!found) {
+        this.timer = setTimeout(() => {
+          this.clearData();
+        }, this.timeout);
+      }
     }
   }
 }
@@ -125,11 +131,13 @@ export default class AlphabetCards extends Vue {
 
 <style lang="scss" scoped>
   .display {
-    min-height: 395px;
+    min-height: 29em;
   }
 
   .keys {
     margin-top:20px;
+    min-width: 22em;
+    max-width: 39em;
   }
   .key {
     border: 1px solid black;

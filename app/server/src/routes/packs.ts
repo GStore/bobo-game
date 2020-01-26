@@ -2,14 +2,15 @@ import express from "express";
 import * as fs from "fs";
 import path from "path";
 import admZip, { IZipEntry } from "adm-zip";
+import Logger from "../middleware/logger";
 
-
-import logger from "../middleware/logger";
-const defaultPacksLocation="../../../../images/cards";
+const log = Logger("routes:packs");
+const defaultPacksLocation = "../../../../images/cards";
 const imageRoute: express.IRouter = express.Router();
 const imageLocation: string = path.resolve(process.env.BG_PACKS || defaultPacksLocation);
 
-logger.log("info", `image locaton: ${imageLocation}`);
+// TODO: Investigate why logs are not displaying when running with npm serve
+log.info(`image locaton: ${imageLocation}`);
 
 const getZipEntries = (zipLocation: string): IZipEntry[] | undefined => {
     if (!fs.existsSync(zipLocation)) {
@@ -24,7 +25,7 @@ const getZipEntries = (zipLocation: string): IZipEntry[] | undefined => {
 };
 
 if (!fs.existsSync(imageLocation)) {
-    logger.log("fatal", "folder not found");
+    log.fatal("folder not found");
     throw new Error("unable to find folder");
 }
 
@@ -50,22 +51,29 @@ imageRoute.get("/packs/:pack", (req: express.Request, res: express.Response) => 
 imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Response) => {
     const pack = req.params.pack;
     const packLocation = `${imageLocation}/${pack}.zip`;
+    log.debug(`Pack location: ${JSON.stringify(packLocation)}`);
     const entries = getZipEntries(packLocation);
-    if (!entries) {
-        res.sendStatus(404);
-    } else {
-        const letter = req.params.letter;
-        const entry = entries.find(f => {
-            return f.entryName[0] === letter;
-        });
+    log.debug(`Total entries: ${entries?.length.toString()}`);
+    try {
+        if (!entries) {
+            res.sendStatus(404);
+        } else {
+            const letter = req.params.letter;
+            const entry = entries.find(f => {
+                return f.entryName[0] === letter;
+            });
 
-        if (entry) {
-            res.setHeader("image-name", path.parse(entry.entryName).name);
-            res.setHeader("Content-Type", "image/png");
-            res.send(entry.getData());
-            return;
+            if (entry) {
+                res.setHeader("image-name", path.parse(entry.entryName).name);
+                res.setHeader("Content-Type", "image/png");
+                res.send(entry.getData());
+                return;
+            }
         }
+    } catch (exception) {
+        log.error(`Exception: ${exception}`);
     }
+
     res.sendStatus(404);
 });
 

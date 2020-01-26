@@ -13,7 +13,7 @@ const logLevels: winston.config.AbstractConfigSet = {
         trace: 5,
     },
     colors: {
-        trace: "white",
+        trace: "magenta",
         debug: "green",
         info: "blue",
         warn: "yellow",
@@ -34,22 +34,44 @@ const consoleTrasportOptions: winston.transports.ConsoleTransportOptions = {
     ),
 };
 
+winston.addColors(logLevels.colors);
+
 const logger = winston.createLogger({
     levels: logLevels.levels,
     level: LOGLEVEL,
     transports: [new winston.transports.Console(consoleTrasportOptions)],
 });
 
-winston.addColors(logLevels.colors);
+const Logger = (label: string) => {
+    return {
+        fatal: (message: string) => {
+            logger.log("fatal", message, { label: label });
+        },
+        error: (message: string) => {
+            logger.log("error", message, { label: label });
+        },
+        warn: (message: string) => {
+            logger.log("warn", message, { label: label });
+        },
+        info: (message: string) => {
+            logger.log("info", message, { label: label });
+        },
+        debug: (message: string) => {
+            logger.log("debug", message, { label: label });
+        },
+        trace: (message: string) => {
+            logger.log("trace", message, { label: label });
+        },
+    };
+};
 
 /*
-
 Example usage:
-logger.log("trace", "can't find error");
-logger.log("debug", `debugging to find error`);
-logger.log("info", `need info on memory amount`);
-logger.log("warn", `could be running out or mem`);
-logger.log("error", `some systems have failed`);
-logger.log("fatal", `a fatal error occured`);
+logger.trace("can't find error");
+logger.debug(`debugging to find error`);
+logger.info(`need info on memory amount`);
+logger.warn(`could be running out or mem`);
+logger.error(`some systems have failed`);
+logger.fatal(`a fatal error occured`);
 */
-export default logger;
+export default Logger;
