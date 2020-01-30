@@ -1,0 +1,56 @@
+.card {
+  min-width: 266px;
+  height: 395px;
+  border: 1px solid black;
+  padding: 5px;
+
+  
+
+  .letters {
+    font-size: 89px;
+    height: 32%;
+    //border: 1px dashed black;
+    margin: 0px;
+
+    .capital {
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .lower {
+      text-align: center;
+    }
+
+    
+  }
+
+  .image {
+    height: 51%;
+    //border: 1px dashed black;
+    margin: 0px;
+  
+      img {
+        border: 0px;
+        max-height: 100%;
+        max-width: 100%;
+      }
+  }
+
+  .description {
+    font-size: 30px;
+    height: 16%;
+    //border: 1px dashed black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+  }
+
+  .uppercase {
+    text-transform:uppercase;
+  }
+  
+  .capitalise {
+    text-transform: capitalize;
+  }
+}
