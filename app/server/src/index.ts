@@ -12,7 +12,6 @@ configure(entrypoint);
 entrypoint.use(history());
 entrypoint.use("/", express.static("dist/ui"));
 
-
 entrypoint.listen(port, () => {
     consoleLog(chalk.yellow("server started on port: ") + chalk.green(port));
     consoleLog(chalk.green(`http://localhost:${port}`));

@@ -1,17 +1,23 @@
 <template>
 <article class="col-xs">
-  Alphabet cards : {{ model.keyPress }}
     <div class="row center-xs display">
-      <Card v-if="model.keyPress" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
+      <Card v-if="model.keyPress && model.letter" :letter="model.keyPress" :image="imageLocation" :description="model.description"/>    
+      <NumberCard v-if="model.keyPress && model.number" :number="model.keyPress" :image="imageLocation" />
     </div>
     <div class="row center-xs">
       <div class="keys col-xs-8 col-sm-8 col-md-8 col-lg-8">
         <div class="row">
-        <div class="col col-xs-1 key" v-for="n in keys" v-bind:key="n" @click="cardUpdate(n)">
-          {{ String.fromCharCode(n) }}
+          <div class="col col-xs-1 key" v-for="n in numbers" v-bind:key="n" @click="cardUpdate(n,'number')">
+            {{ n }}
+          </div>
         </div>
+        <div class="row">
+          <div class="col col-xs-1 key" v-for="n in keys" v-bind:key="n" @click="cardUpdate(n,'letter')">
+            {{ n }}
+          </div>
         </div>
       </div>
+      
     </div>
 </article>
   
@@ -20,11 +26,13 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import Card from "@/components/card.vue";
+import NumberCard from "@/components/numbercard.vue";
 import axios from "axios";
 
 @Component<AlphabetCards>({
   components: {
-    Card
+    Card,
+    NumberCard
   },
   mounted(){
     this.$nextTick(() => {
@@ -41,7 +49,9 @@ import axios from "axios";
 export default class AlphabetCards extends Vue {
   private model: any = {
     keyPress: "",
-    description: ""
+    description: "",
+    letter: false,
+    number: false
   }
   private timeout: number = 700;
   private timer: any;
@@ -50,11 +60,21 @@ export default class AlphabetCards extends Vue {
   private packName: string = "default";
   private keyStart: number = 97;
   private keyEnd: number = 122;
+  private numberStart: number =49;
+  private numberEnd:  number =57;
 
-  get keys(): number[] {
-    const keyArray: number[] = [];
-    for(let n= this.keyStart; n <= this.keyEnd;n++) {
-      keyArray.push(n);
+  get keys(): string[] {
+    return this.GenerateKeys(this.keyStart, this.keyEnd);
+  }
+
+  get numbers(): string[] {
+    return this.GenerateKeys(this.numberStart, this.numberEnd);
+  }
+
+  private GenerateKeys(start: number, end: number): string[] {
+    const keyArray: string[] = [];
+    for(let n= start; n <= end;n++) {
+      keyArray.push(String.fromCharCode(n));
     }
     return keyArray;
   }
@@ -75,8 +95,10 @@ export default class AlphabetCards extends Vue {
     this.model.description = "";
   };
 
-  private cardUpdate(charCode: number) {
-    this.model.keyPress = String.fromCharCode(charCode);
+  private cardUpdate(key: string, type:string) {
+    this.model.letter=type === "letter";
+    this.model.number=type === "number"
+    this.model.keyPress = key;
   }
 
   private isKeyAllowed(keyCode: number) {
