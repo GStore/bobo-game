@@ -9,4 +9,12 @@ module.exports = {
         ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
         sourceType: 'module', // Allows for the use of imports
     },
+    "rules": {
+      "@typescript-eslint/interface-name-prefix": [
+          "error",
+          {
+              "prefixWithI": "always"
+          }
+      ]
+  }
 };

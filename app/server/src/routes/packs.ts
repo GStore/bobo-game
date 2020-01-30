@@ -5,7 +5,7 @@ import admZip, { IZipEntry } from "adm-zip";
 import Logger from "../middleware/logger";
 
 const log = Logger("routes:packs");
-const defaultPacksLocation="../../../../images/cards";
+const defaultPacksLocation = "../../../../images/cards";
 const imageRoute: express.IRouter = express.Router();
 const imageLocation: string = path.resolve(process.env.BG_PACKS || defaultPacksLocation);
 
@@ -54,7 +54,7 @@ imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Respo
     log.debug(`Pack location: ${JSON.stringify(packLocation)}`);
     const entries = getZipEntries(packLocation);
     log.debug(`Total entries: ${entries?.length.toString()}`);
-    try{
+    try {
         if (!entries) {
             res.sendStatus(404);
         } else {
@@ -62,7 +62,7 @@ imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Respo
             const entry = entries.find(f => {
                 return f.entryName[0] === letter;
             });
-    
+
             if (entry) {
                 res.setHeader("image-name", path.parse(entry.entryName).name);
                 res.setHeader("Content-Type", "image/png");
@@ -70,11 +70,10 @@ imageRoute.get("/packs/:pack/:letter", (req: express.Request, res: express.Respo
                 return;
             }
         }
+    } catch (exception) {
+        log.error(`Exception: ${exception}`);
     }
-    catch(exception) {
-        log.error(`Exception: ${exception}`)
-    }
-    
+
     res.sendStatus(404);
 });
 
