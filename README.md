@@ -10,9 +10,11 @@ A game for my son to learn the alphabet
 ![CSS](https://img.shields.io/badge/-CSS-264de4)
 
 
-
-
 ## Project setup
+
+```
+cd app
+```
 ```
 npm install
 ```
@@ -27,15 +29,12 @@ npm run serve
 npm run build
 ```
 
-### Run your unit tests
+### Run your tests
 ```
-npm run test:unit
+npm run test
 ```
 
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
