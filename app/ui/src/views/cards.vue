@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import Card from "@/components/card.vue";
+import Card from "@/components/card/card.vue";
 import NumberCard from "@/components/numbercard/numbercard.vue";
 import axios from "axios";
 
