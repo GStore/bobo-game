@@ -1,7 +1,7 @@
 # Bobo Game
 A game for my son to learn the alphabet
 
-### [Documentation](./readme.d/documentation.md)
+### [Documentation](./readme.d/readme.md)
 
 ![node](https://img.shields.io/badge/-Node.JS-56ab36) 
 ![TypeScript](https://img.shields.io/badge/-TypeScript-2e91d3)
